@@ -192,7 +192,7 @@ const Index = () => {
     };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden scroll-smooth">
+    <div className="min-h-screen bg-background text-foreground overflow-x-clip scroll-smooth">
       {/* Ambient glow */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-gradient-glow opacity-60" />
@@ -200,8 +200,7 @@ const Index = () => {
       </div>
 
       {/* NAV */}
-      <header className="relative">
-        <div className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
           <nav className="container mx-auto flex items-center justify-between py-4 px-4">
           <a
             href="#"
@@ -284,8 +283,9 @@ const Index = () => {
                 </li>
             </ul>
           </div>
-        </div>
+      </div>
 
+      <header className="relative">
         {/* HERO */}
         <section className="container mx-auto grid lg:grid-cols-2 gap-12 items-center pt-10 pb-28 lg:pb-36 px-4">
           <div className="space-y-8 relative z-10">
