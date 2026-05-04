@@ -26,7 +26,9 @@ import {
   Linkedin,
   Youtube,
   MessageCircle,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 import {
   TikTokIcon,
   WhatsAppIcon,
@@ -162,6 +164,10 @@ const otherServices = [
 ];
 
 const Index = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Ambient glow */}
@@ -228,10 +234,65 @@ const Index = () => {
               Réserver un appel <ArrowRight />
             </a>
           </Button>
-          <button className="md:hidden text-foreground" aria-label="Menu">
-            <Menu />
+          <button
+            className="md:hidden text-foreground"
+            aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </nav>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden container mx-auto px-4 pb-6">
+            <ul className="glass rounded-xl p-4 space-y-4 text-sm font-medium text-muted-foreground">
+              <li>
+                <a
+                  href="#about"
+                  className="block hover:text-foreground transition-smooth"
+                  onClick={closeMobileMenu}
+                >
+                  À propos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="block hover:text-foreground transition-smooth"
+                  onClick={closeMobileMenu}
+                >
+                  Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#formations"
+                  className="block hover:text-foreground transition-smooth"
+                  onClick={closeMobileMenu}
+                >
+                  Formations
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="block hover:text-foreground transition-smooth"
+                  onClick={closeMobileMenu}
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <Button variant="hero" size="sm" asChild className="w-full">
+                  <a href="#contact" onClick={closeMobileMenu}>
+                    Réserver un appel <ArrowRight />
+                  </a>
+                </Button>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* HERO */}
         <section className="container mx-auto grid lg:grid-cols-2 gap-12 items-center pt-10 pb-28 lg:pb-36 px-4">
