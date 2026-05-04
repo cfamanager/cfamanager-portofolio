@@ -163,13 +163,36 @@ const otherServices = [
   },
 ];
 
+const navItems = [
+  { label: "À propos", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Formations", href: "#formations" },
+  { label: "Contact", href: "#contact" },
+];
+
 const Index = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#about");
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const handleNavClick =
+    (href: string, onDone?: () => void) =>
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const targetSection = document.getElementById(targetId);
+
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        setActiveSection(href);
+      }
+
+      onDone?.();
+    };
+
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden scroll-smooth">
       {/* Ambient glow */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-gradient-glow opacity-60" />
@@ -191,38 +214,21 @@ const Index = () => {
             CFA<span className="text-gradient-primary"> MANAGER</span>
           </a>
           <ul className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <li>
-              <a
-                href="#about"
-                className="hover:text-foreground transition-smooth"
-              >
-                À propos
-              </a>
-            </li>
-            <li>
-              <a
-                href="#services"
-                className="hover:text-foreground transition-smooth"
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="#formations"
-                className="hover:text-foreground transition-smooth"
-              >
-                Formations
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className="hover:text-foreground transition-smooth"
-              >
-                Contact
-              </a>
-            </li>
+            {navItems.map(({ label, href }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className={`transition-smooth ${
+                    activeSection === href
+                      ? "text-foreground"
+                      : "hover:text-foreground"
+                  }`}
+                  onClick={handleNavClick(href)}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
           <Button
             variant="hero"
@@ -230,7 +236,7 @@ const Index = () => {
             asChild
             className="hidden md:inline-flex"
           >
-            <a href="#contact">
+            <a href="#contact" onClick={handleNavClick("#contact")}>
               Réserver un appel <ArrowRight />
             </a>
           </Button>
@@ -244,55 +250,39 @@ const Index = () => {
           </button>
         </nav>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden container mx-auto px-4 pb-6">
-            <ul className="glass rounded-xl p-4 space-y-4 text-sm font-medium text-muted-foreground">
-              <li>
+        <div
+          className={`md:hidden container mx-auto px-4 transition-all duration-300 ease-out origin-top ${
+            isMobileMenuOpen
+              ? "max-h-[420px] opacity-100 translate-y-0 pb-6"
+              : "max-h-0 opacity-0 -translate-y-2 overflow-hidden pb-0 pointer-events-none"
+          }`}
+        >
+          <ul className="glass rounded-xl p-4 space-y-4 text-sm font-medium text-muted-foreground">
+            {navItems.map(({ label, href }) => (
+              <li key={href}>
                 <a
-                  href="#about"
-                  className="block hover:text-foreground transition-smooth"
-                  onClick={closeMobileMenu}
+                  href={href}
+                  className={`block transition-smooth ${
+                    activeSection === href ? "text-foreground" : "hover:text-foreground"
+                  }`}
+                  onClick={handleNavClick(href, closeMobileMenu)}
                 >
-                  À propos
+                  {label}
                 </a>
               </li>
-              <li>
-                <a
-                  href="#services"
-                  className="block hover:text-foreground transition-smooth"
-                  onClick={closeMobileMenu}
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#formations"
-                  className="block hover:text-foreground transition-smooth"
-                  onClick={closeMobileMenu}
-                >
-                  Formations
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="block hover:text-foreground transition-smooth"
-                  onClick={closeMobileMenu}
-                >
-                  Contact
-                </a>
-              </li>
+            ))}
               <li>
                 <Button variant="hero" size="sm" asChild className="w-full">
-                  <a href="#contact" onClick={closeMobileMenu}>
+                  <a
+                    href="#contact"
+                    onClick={handleNavClick("#contact", closeMobileMenu)}
+                  >
                     Réserver un appel <ArrowRight />
                   </a>
                 </Button>
               </li>
-            </ul>
-          </div>
-        )}
+          </ul>
+        </div>
 
         {/* HERO */}
         <section className="container mx-auto grid lg:grid-cols-2 gap-12 items-center pt-10 pb-28 lg:pb-36 px-4">
@@ -315,12 +305,14 @@ const Index = () => {
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Button variant="hero" size="lg" asChild>
-                <a href="#contact">
+                <a href="#contact" onClick={handleNavClick("#contact")}>
                   Démarrer un projet <ArrowRight />
                 </a>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="#services">Voir nos services</a>
+                <a href="#services" onClick={handleNavClick("#services")}>
+                  Voir nos services
+                </a>
               </Button>
             </div>
             <div className="flex items-center gap-8 pt-4">
