@@ -201,7 +201,8 @@ const Index = () => {
 
       {/* NAV */}
       <header className="relative">
-        <nav className="container mx-auto flex items-center justify-between py-6 px-4">
+        <div className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+          <nav className="container mx-auto flex items-center justify-between py-4 px-4">
           <a
             href="#"
             className="flex items-center gap-2 text-xl font-bold tracking-tight"
@@ -248,40 +249,41 @@ const Index = () => {
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
-        </nav>
+          </nav>
 
-        <div
-          className={`md:hidden container mx-auto px-4 transition-all duration-300 ease-out origin-top ${
-            isMobileMenuOpen
-              ? "max-h-[420px] opacity-100 translate-y-0 pb-6"
-              : "max-h-0 opacity-0 -translate-y-2 overflow-hidden pb-0 pointer-events-none"
-          }`}
-        >
-          <ul className="glass rounded-xl p-4 space-y-4 text-sm font-medium text-muted-foreground">
-            {navItems.map(({ label, href }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  className={`block transition-smooth ${
-                    activeSection === href ? "text-foreground" : "hover:text-foreground"
-                  }`}
-                  onClick={handleNavClick(href, closeMobileMenu)}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
-              <li>
-                <Button variant="hero" size="sm" asChild className="w-full">
+          <div
+            className={`md:hidden container mx-auto px-4 transition-all duration-300 ease-out origin-top ${
+              isMobileMenuOpen
+                ? "max-h-[420px] opacity-100 translate-y-0 pb-4"
+                : "max-h-0 opacity-0 -translate-y-2 overflow-hidden pb-0 pointer-events-none"
+            }`}
+          >
+            <ul className="glass rounded-xl p-4 space-y-4 text-sm font-medium text-muted-foreground">
+              {navItems.map(({ label, href }) => (
+                <li key={href}>
                   <a
-                    href="#contact"
-                    onClick={handleNavClick("#contact", closeMobileMenu)}
+                    href={href}
+                    className={`block transition-smooth ${
+                      activeSection === href ? "text-foreground" : "hover:text-foreground"
+                    }`}
+                    onClick={handleNavClick(href, closeMobileMenu)}
                   >
-                    Réserver un appel <ArrowRight />
+                    {label}
                   </a>
-                </Button>
-              </li>
-          </ul>
+                </li>
+              ))}
+                <li>
+                  <Button variant="hero" size="sm" asChild className="w-full">
+                    <a
+                      href="#contact"
+                      onClick={handleNavClick("#contact", closeMobileMenu)}
+                    >
+                      Réserver un appel <ArrowRight />
+                    </a>
+                  </Button>
+                </li>
+            </ul>
+          </div>
         </div>
 
         {/* HERO */}
