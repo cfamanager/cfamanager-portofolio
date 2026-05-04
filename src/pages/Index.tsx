@@ -640,7 +640,12 @@ const Index = () => {
         <div className="container mx-auto py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground px-4">
           <div className="flex items-center gap-2 text-center md:text-left">
             <span className="w-6 h-6 rounded-md bg-gradient-primary grid place-items-center">
-              <Sparkles className="w-3 h-3 text-primary-foreground" />
+              {/*<Sparkles className="w-3 h-3 text-primary-foreground" />*/}
+              <img
+                  src={cfalogo}
+                  alt="CFA Manager Logo"
+                  className="w-9 h-6 rounded-lg"
+              />
             </span>
             © 2026 CFA MANAGER · Votre croissance digitale commence ici.
           </div>
