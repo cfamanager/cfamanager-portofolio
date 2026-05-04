@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark modern: black canvas + blue glow */
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Electric blue primary */
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 210 100% 70%;
+
+    /* Cyan accent */
+    --accent: 188 86% 53%;
+    --accent-foreground: 210 40% 98%;
+    --accent-glow: 180 100% 70%;
+
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 47% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 217 91% 60%;
+
+    --radius: 1rem;
+
+    /* Surfaces */
+    --surface-dark: 222 47% 2%;
+    --surface-dark-foreground: 210 40% 98%;
+    --surface-tinted: 217 32% 8%;
+
+    /* Gradients */
+    --gradient-hero: radial-gradient(ellipse at top, hsl(217 91% 20% / 0.55) 0%, hsl(222 47% 4%) 60%);
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(188 86% 53%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(188 86% 53%) 0%, hsl(199 89% 48%) 100%);
+    --gradient-band: linear-gradient(90deg, hsl(217 91% 30%) 0%, hsl(188 86% 35%) 50%, hsl(217 91% 30%) 100%);
+    --gradient-courses: linear-gradient(180deg, hsl(217 91% 12%) 0%, hsl(222 47% 5%) 100%);
+    --gradient-soft: linear-gradient(135deg, hsl(222 47% 9%) 0%, hsl(217 32% 12%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(210 100% 70% / 0.35) 0%, transparent 70%);
+
+    /* Shadows */
+    --shadow-elegant: 0 30px 80px -30px hsl(217 91% 50% / 0.45);
+    --shadow-glow: 0 0 80px hsl(210 100% 65% / 0.45);
+    --shadow-card: 0 12px 40px -16px hsl(217 91% 20% / 0.6);
+    --shadow-soft: 0 2px 16px -2px hsl(0 0% 0% / 0.4);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 222 47% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-hero { background: var(--gradient-hero); }
+  .bg-gradient-primary { background: var(--gradient-primary); }
+  .bg-gradient-accent { background: var(--gradient-accent); }
+  .bg-gradient-band { background: var(--gradient-band); }
+  .bg-gradient-courses { background: var(--gradient-courses); }
+  .bg-gradient-soft { background: var(--gradient-soft); }
+  .bg-gradient-glow { background: var(--gradient-glow); }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+
+  .transition-smooth { transition: var(--transition-smooth); }
+
+  .dashed-ring {
+    border: 2px dashed hsl(var(--accent) / 0.45);
+    border-radius: 9999px;
+  }
+
+  .glass {
+    background: hsl(222 47% 10% / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 30s linear infinite; }
+}
