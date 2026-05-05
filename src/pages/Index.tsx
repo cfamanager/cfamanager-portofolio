@@ -707,6 +707,8 @@ const Index = () => {
           <div className="flex items-center gap-4">
             {socials.map(({ name, icon: Icon, href }) => (
               <a
+                target="_blank" 
+                rel="noopener noreferrer"
                 key={name}
                 href={href}
                 aria-label={name}
